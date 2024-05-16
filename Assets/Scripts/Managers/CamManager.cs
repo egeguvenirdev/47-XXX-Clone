@@ -7,6 +7,7 @@ using MoreMountains.Feedbacks;
 public class CamManager : MonoBehaviour
 {
     [Header("Camera Components")]
+    [SerializeField] private Camera mainCam;
     [SerializeField] private Camera ortograficCam;
 
     [Header("Cam Follow Settings")]
@@ -24,42 +25,29 @@ public class CamManager : MonoBehaviour
     [SerializeField] private float shakeAmplitudeZ;
     [SerializeField] private bool unscaledTime;
 
-    private Transform player;
+    private float camBasicSize = 0.5f;
 
     public void Init()
     {
-        ActionManager.Updater += OnUpdate;
         ActionManager.CamShake += OnCamShake;
+        ActionManager.SetCamSize += OnSetCamSize;
         ActionManager.GetOrtograficScreenToWorldPoint += OnGetOrtograficCam;
 
-        player = FindObjectOfType<PlayerManager>().GetCharacterTransform;
     }
 
     public void DeInit()
     {
-        ActionManager.Updater -= OnUpdate;
         ActionManager.CamShake -= OnCamShake;
+        ActionManager.SetCamSize -= OnSetCamSize;
         ActionManager.GetOrtograficScreenToWorldPoint -= OnGetOrtograficCam;
 
-        transform.position = Vector3.zero;
+        camBasicSize = mainCam.orthographicSize;
     }
 
-    /*private void Update()
+    private void OnSetCamSize(float sizeMultiplier)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            camShaker.ShakeCamera(shakeDuration, shakeAmplitude, shakeFrequency, shakeAmplitudeX, shakeAmplitudeY, shakeAmplitudeZ, unscaledTime);
-        }
-    }*/
-
-    private void OnUpdate(float deltaTime)
-    {
-        if (player != null)
-        {
-            Vector3 targetPosition = player.position + followOffset;
-            targetPosition.x = Mathf.Clamp(targetPosition.x, -clampLocalX, clampLocalX);
-            transform.position = Vector3.Lerp(transform.position, targetPosition, playerFollowSpeed * deltaTime);
-        }
+        Debug.Log("size");
+        mainCam.orthographicSize = camBasicSize * sizeMultiplier;
     }
 
     private Vector3 OnGetOrtograficCam(Vector3 targetPos)

@@ -9,7 +9,6 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Panels")]
     [SerializeField] private ButtonBase[] panels;
-    [SerializeField] private UpgradeCard[] upgradeButtons;
     [SerializeField] private GameObject[] InGameUis;
     [SerializeField] private ButtonBase upgradePanel;
 
@@ -37,13 +36,6 @@ public class UIManager : MonoSingleton<UIManager>
         ActionManager.GameStart += OpenInGameUis;
         ActionManager.GameEnd += CloseInGameUis;
 
-        LevelText();
-
-        for (int i = 0; i < upgradeButtons.Length; i++)
-        {
-            upgradeButtons[i].Init();
-        }
-
         for (int i = 0; i < panels.Length; i++)
         {
             panels[i].Init();
@@ -54,11 +46,6 @@ public class UIManager : MonoSingleton<UIManager>
     {
         ActionManager.GameStart -= OpenInGameUis;
         ActionManager.GameEnd -= CloseInGameUis;
-
-        for (int i = 0; i < upgradeButtons.Length; i++)
-        {
-            upgradeButtons[i].DeInit();
-        }
 
         for (int i = 0; i < panels.Length; i++)
         {
@@ -80,14 +67,6 @@ public class UIManager : MonoSingleton<UIManager>
     public void SetProgress(float progress)
     {
         progressBarImage.fillAmount = progress;
-    }
-
-    public void UpgradeButtons()
-    {
-        for (int i = 0; i < upgradeButtons.Length; i++)
-        {
-            upgradeButtons[i].OnPurchase();
-        }
     }
 
     private void OpenInGameUis()
@@ -123,8 +102,6 @@ public class UIManager : MonoSingleton<UIManager>
             smoothMoneyNumbers = totalMoney;
             UpdateMoneyText();
         }
-
-        UpgradeButtons();
     }
 
     private void UpdateMoneyText()

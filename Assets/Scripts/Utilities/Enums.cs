@@ -19,15 +19,7 @@ public enum EnemyType
 
 public enum PoolObjectType
 {
-    PlayerThrowable,
-    PlayerGravityThrowable,
-    RangeEnemy,
-    MeeleEnemy,
-    EnemyThrowable,
-    SlideText,
-    Coin,
-    Health,
-    BloodParticle
+    Grid
 }
 
 [System.Flags]

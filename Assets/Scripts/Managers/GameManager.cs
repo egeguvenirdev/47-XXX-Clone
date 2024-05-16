@@ -9,11 +9,8 @@ public class GameManager : MonoSingleton<GameManager>
     [Header("PlayerPrefs")]
     [SerializeField] private bool clearPlayerPrefs;
 
-    private PlayerManager playerManager;
-    private LevelManager levelManager;
     private UpdateManager updateManager;
     private CamManager camManager;
-    private MoneyManager moneyManager;
     private UIManager uIManager;
     private ObjectPooler pooler;
     private AudioManager audioManager;
@@ -22,8 +19,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (clearPlayerPrefs) PlayerPrefs.DeleteAll();
 
-        levelManager = LevelManager.Instance;
-        moneyManager = MoneyManager.Instance;
         uIManager = UIManager.Instance;
         pooler = ObjectPooler.Instance;
         updateManager = FindObjectOfType<UpdateManager>();
@@ -35,18 +30,15 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void SetInits()
     {
-        levelManager.Init();
         uIManager.Init();
-        moneyManager.Init();
         updateManager.Init();
         audioManager.Init();
+        camManager.Init();
     }
 
     private void DeInits()
     {
-        levelManager.DeInit();
         uIManager.DeInit();
-        moneyManager.DeInit();
         updateManager.DeInit();
         camManager.DeInit();
         pooler.DeInit();
@@ -56,16 +48,10 @@ public class GameManager : MonoSingleton<GameManager>
     public void OnStartTheGame()
     {
         ActionManager.GameStart?.Invoke();
-
-        playerManager = FindObjectOfType<PlayerManager>();
-        playerManager.Init();
-
-        camManager.Init();
     }
 
     public void OnLevelSucceed()
     {
-        levelManager.LevelUp();
         DeInits();
         SetInits();
     }
@@ -78,10 +64,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void FinishTheGame(bool check)
     {
-        playerManager.DeInit();
-
-        ActionManager.GameplayUpgrade(UpgradeType.Money, 50f);
         ActionManager.GameEnd?.Invoke(check);
-
     }
 }

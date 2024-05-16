@@ -5,7 +5,6 @@ using UnityEngine;
 public class ObjectPooler : MonoSingleton<ObjectPooler>
 {
     [SerializeField] private List<ObjectPooledItem> itemsToPool;
-    [SerializeField] private List<ObjectPooledItem> textsToPool;
     [SerializeField] private GameObject pooledObjectHolder;
 
     private List<PoolableObjectBase> pooledObjects;
