@@ -44,10 +44,11 @@ public class CamManager : MonoBehaviour
         camBasicSize = mainCam.orthographicSize;
     }
 
-    private void OnSetCamSize(float sizeMultiplier)
+    private void OnSetCamSize(float sizeMultiplier, float anchorPos, float ratio)
     {
-        Debug.Log("size");
-        mainCam.orthographicSize = camBasicSize * sizeMultiplier;
+        Debug.Log(ratio);
+        mainCam.orthographicSize = camBasicSize * sizeMultiplier * ratio;
+        mainCam.transform.localPosition = new Vector3(anchorPos + 0.1f, 10, 2.1f - ratio);
     }
 
     private Vector3 OnGetOrtograficCam(Vector3 targetPos)

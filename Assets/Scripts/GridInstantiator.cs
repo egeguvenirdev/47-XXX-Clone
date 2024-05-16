@@ -11,18 +11,11 @@ public class GridInstantiator : MonoBehaviour
 
     //Screen Settings
     private float screenSize = 0;
+    private float screenRatioMultiplier;
     private float screenRatio;
     private int sizeOfGrid;
     private bool canCheck;
-
-    private IEnumerator Start()
-    {
-        yield return CoroutineManager.GetTime(1f, 10f);
-
-        pooler = ObjectPooler.Instance;
-        CreateGridElements(size);
-        canCheck = true;
-    }
+    private float anchorPos;
 
     private void Update()
     {
@@ -30,9 +23,28 @@ public class GridInstantiator : MonoBehaviour
         ArrangeElements();
     }
 
+    public void Init()
+    {
+        if (grids.Count > 0) ResetTheList();
+
+        pooler = ObjectPooler.Instance;
+        CreateGridElements(size);
+        canCheck = true;
+
+        ActionManager.RebuildBySize += CreateGridElements;
+    }
+
+    public void DeInit()
+    {
+        ActionManager.RebuildBySize -= CreateGridElements;
+    }
+
     public void CreateGridElements(int size)
     {
         sizeOfGrid = size;
+
+        if (anchorPos % 2 == 1) anchorPos = (size - 1) / 2;
+        else anchorPos = size / 2;
 
         for (int i = 1; i <= size; i++)
         {
@@ -52,15 +64,14 @@ public class GridInstantiator : MonoBehaviour
     {
         if (!CalculateRatio()) return;
 
-        Debug.Log(screenRatio);
-        ActionManager.SetCamSize?.Invoke(screenRatio);
+        ActionManager.SetCamSize?.Invoke(screenRatioMultiplier, anchorPos, screenRatio);
 
         for (int i = 0; i < grids.Count; i++)
         {
             Vector3 gridPos = new Vector3(
-                (grids[i].height - 1) + (grids[i].height - 1) * gapBetweenGrids,
+                (grids[i].Height - 1) + (grids[i].Height - 1) * gapBetweenGrids,
                 5,
-                (grids[i].width - 1) + (grids[i].width - 1) * gapBetweenGrids);
+                (grids[i].Width - 1) + (grids[i].Width - 1) * gapBetweenGrids);
 
             grids[i].transform.position = gridPos;
         }
@@ -68,13 +79,34 @@ public class GridInstantiator : MonoBehaviour
 
     private bool CalculateRatio()
     {
-        if (screenSize == Screen.width || screenSize == Screen.height) return false;
+        //if (screenSize == Screen.width && screenSize == Screen.height) return false;
 
-        if (Screen.width < Screen.height) screenSize = Screen.width;
-        else screenSize = Screen.height;
+        screenRatioMultiplier = (sizeOfGrid + (sizeOfGrid + 1) * gapBetweenGrids);
 
-        screenRatio = (screenSize / 1000f) * (sizeOfGrid + ((sizeOfGrid - 1) * gapBetweenGrids));
+        if (Screen.width < Screen.height)
+        {
+            screenRatio = (float)Screen.height / (float)Screen.width;
+            screenRatioMultiplier = (sizeOfGrid + (sizeOfGrid + 1) * gapBetweenGrids);
+        }
+        else
+        {
+            screenRatio = (float)Screen.width / (float)Screen.height;
+            screenRatioMultiplier = (sizeOfGrid + (sizeOfGrid + 1) * gapBetweenGrids);
+        }
+
+
+        //screenRatio = (screenSize / 1000f) * (sizeOfGrid + (sizeOfGrid + 1) * gapBetweenGrids);
 
         return true;
+    }
+
+    private void ResetTheList()
+    {
+        for (int i = 0; i < grids.Count; i++)
+        {
+            grids[i].DeInit();
+        }
+
+        grids.Clear();
     }
 }

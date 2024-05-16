@@ -5,8 +5,8 @@ using UnityEngine;
 public class GridElement : PoolableObjectBase
 {
     [SerializeField] private SpriteRenderer sprite;
-    public int height;
-    public int width;
+    private int height;
+    private int width;
 
     public int Height { get => height; set => height = value; }
     public int Width { get => width; set => width = value; }
@@ -19,6 +19,8 @@ public class GridElement : PoolableObjectBase
 
     public void DeInit()
     {
-
+        sprite.enabled = false;
+        height = 0;
+        width = 0;
     }
 }
