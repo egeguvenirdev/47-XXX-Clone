@@ -25,8 +25,6 @@ public class GridInstantiator : MonoBehaviour
 
     public void Init()
     {
-        if (grids.Count > 0) ResetTheList();
-
         pooler = ObjectPooler.Instance;
         CreateGridElements(size);
         canCheck = true;
@@ -41,6 +39,8 @@ public class GridInstantiator : MonoBehaviour
 
     public void CreateGridElements(int size)
     {
+        if (grids.Count > 0) ResetTheList();
+
         sizeOfGrid = size;
 
         if (anchorPos % 2 == 1) anchorPos = (size - 1) / 2;

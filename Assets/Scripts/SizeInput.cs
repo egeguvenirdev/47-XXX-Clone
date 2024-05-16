@@ -6,9 +6,13 @@ public class SizeInput : MonoBehaviour
 {
     private int value = 3;
 
-    public void OnInputInt(int value)
+    public void OnInput(string value)
     {
-        this.value = value;
+        //this.value = value;
+
+        int.TryParse(value, out int result);
+        this.value = result;
+        Debug.Log(value);
     }
 
     public void OnButtonClick()

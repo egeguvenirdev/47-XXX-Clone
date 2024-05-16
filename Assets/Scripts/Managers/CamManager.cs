@@ -27,6 +27,8 @@ public class CamManager : MonoBehaviour
 
     private float camBasicSize = 0.5f;
 
+    public Camera MainCam { get => mainCam; set => mainCam = value; }
+
     public void Init()
     {
         ActionManager.CamShake += OnCamShake;
@@ -41,14 +43,14 @@ public class CamManager : MonoBehaviour
         ActionManager.SetCamSize -= OnSetCamSize;
         ActionManager.GetOrtograficScreenToWorldPoint -= OnGetOrtograficCam;
 
-        camBasicSize = mainCam.orthographicSize;
+        camBasicSize = MainCam.orthographicSize;
     }
 
     private void OnSetCamSize(float sizeMultiplier, float anchorPos, float ratio)
     {
         Debug.Log(ratio);
-        mainCam.orthographicSize = camBasicSize * sizeMultiplier * ratio;
-        mainCam.transform.localPosition = new Vector3(anchorPos + 0.1f, 10, 2.1f - ratio);
+        MainCam.orthographicSize = camBasicSize * sizeMultiplier * ratio;
+        MainCam.transform.localPosition = new Vector3(anchorPos + 0.1f, 10, 2.1f - ratio);
     }
 
     private Vector3 OnGetOrtograficCam(Vector3 targetPos)

@@ -1041,6 +1041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7325945623747389309}
   - component: {fileID: 2490278128530700832}
+  - component: {fileID: 7325945623747389310}
   m_Layer: 5
   m_Name: Inputs
   m_TagString: Untagged
@@ -1252,7 +1253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 'Size:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b7df2d649f66fd4abbe00970ea0a7cf, type: 2}
   m_sharedMaterial: {fileID: -3945253319695886331, guid: 3b7df2d649f66fd4abbe00970ea0a7cf, type: 2}
@@ -1424,14 +1425,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 4
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 1
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 4
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -1455,7 +1456,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7325945623747389310}
+        m_TargetAssemblyTypeName: SizeInput, Assembly-CSharp
+        m_MethodName: OnInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2015,7 +2028,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2201126311847787607}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7325945623747389310}
+        m_TargetAssemblyTypeName: SizeInput, Assembly-CSharp
+        m_MethodName: OnButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &7083963037936620458
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2058,6 +2083,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 139.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7325945623747389310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148246050335765117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5e1ac68112df14ebf9dd18659cbc3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7688347891662004873
 MonoBehaviour:
   m_ObjectHideFlags: 0
