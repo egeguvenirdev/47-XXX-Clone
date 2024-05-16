@@ -14,6 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
     private UIManager uIManager;
     private ObjectPooler pooler;
     private AudioManager audioManager;
+    private GridInstantiator gridInstantiator;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoSingleton<GameManager>
         updateManager = FindObjectOfType<UpdateManager>();
         camManager = FindObjectOfType<CamManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        gridInstantiator = FindObjectOfType<GridInstantiator>();
 
         SetInits();
     }
@@ -34,6 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
         updateManager.Init();
         audioManager.Init();
         camManager.Init();
+        gridInstantiator.Init();
     }
 
     private void DeInits()
@@ -43,6 +46,7 @@ public class GameManager : MonoSingleton<GameManager>
         camManager.DeInit();
         pooler.DeInit();
         audioManager.DeInit();
+        gridInstantiator.DeInit();
     }
 
     public void OnStartTheGame()
