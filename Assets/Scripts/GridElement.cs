@@ -13,10 +13,12 @@ public class GridElement : PoolableObjectBase
     public int Width { get => width; set => width = value; }
     public bool OnClicked { get => onClicked; set => onClicked = value; }
 
-    public override void Init(int height, int width)
+    public override void Init(int height, int width, float gapBetweenGrids)
     {
         this.Height = height;
         this.Width = width;
+
+        SetPos(gapBetweenGrids);
     }
 
     public void DeInit()
@@ -33,10 +35,21 @@ public class GridElement : PoolableObjectBase
         {
             OnClicked = true;
             sprite.enabled = true;
+            ActionManager.GridSelected?.Invoke(this);
             return;
         }
 
         OnClicked = false;
         sprite.enabled = false;
+    }
+
+    private void SetPos(float gapBetweenGrids)
+    {
+        Vector3 gridPos = new Vector3(
+                (Height - 1) + (Height - 1) * gapBetweenGrids,
+                5,
+                (Width - 1) + (Width - 1) * gapBetweenGrids);
+
+        transform.position = gridPos;
     }
 }

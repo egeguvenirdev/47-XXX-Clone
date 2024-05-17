@@ -12,7 +12,6 @@ public class SizeInput : MonoBehaviour
 
         int.TryParse(value, out int result);
         this.value = result;
-        Debug.Log(value);
     }
 
     public void OnButtonClick()
