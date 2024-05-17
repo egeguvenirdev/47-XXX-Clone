@@ -20,7 +20,7 @@ public static class ActionManager
     public static Action ClearGrids { get; set; }
     public static Action<int> RebuildBySize { get; set; }
     public static Action<GridElement> GridSelected { get; set; }
-    public static Action MatchedGrids { get; set; }
+    public static Action<int> MatchedGrids { get; set; }
 
     //MoneyActions
     public static Action<float> UpdateMoneyMultiplier { get; set; }

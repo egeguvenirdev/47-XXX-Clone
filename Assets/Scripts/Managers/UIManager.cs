@@ -8,21 +8,21 @@ using DG.Tweening;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Panels")]
-
-    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text matchValueText;
 
     public void Init()
     {
-        
+        ActionManager.MatchedGrids += OnMatchedGrids;
+        matchValueText.text = "Match Count: " + 0;
     }
 
     public void DeInit()
     {
-        
+        ActionManager.MatchedGrids -= OnMatchedGrids;
     }
 
-    public void TimerText(string refText)
+    private void OnMatchedGrids(int currentValue)
     {
-        timerText.text = refText;
+        matchValueText.text = "Match Count: " + currentValue;
     }
 }

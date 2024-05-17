@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GridInstantiator instantiator;
 
     private List<GridElement> grids = new();
+    private int matchCount;
 
     public void Init()
     {
@@ -49,7 +50,19 @@ public class GridManager : MonoBehaviour
 
         if (neighborGrids.Count >= 3)
         {
-            Debug.Log("komsular eslesti");
+            matchCount++;
+            ActionManager.MatchedGrids?.Invoke(matchCount);
+
+            for (int i = 0; i < neighborGrids.Count; i++)
+            {
+                neighborGrids[i].OnMatch();
+            }
+
+            neighborGrids.Clear();
+        }
+        else
+        {
+            neighborGrids.Clear();
         }
     }
 }

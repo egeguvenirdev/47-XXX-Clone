@@ -43,6 +43,12 @@ public class GridElement : PoolableObjectBase
         sprite.enabled = false;
     }
 
+    public void OnMatch()
+    {
+        OnClicked = false;
+        sprite.enabled = false;
+    }
+
     private void SetPos(float gapBetweenGrids)
     {
         Vector3 gridPos = new Vector3(
